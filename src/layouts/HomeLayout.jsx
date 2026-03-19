@@ -1,4 +1,4 @@
-import React, { Suspense } from 'react';
+import React, { Suspense, useEffect } from 'react';
 import { Outlet, useNavigation } from 'react-router';
 import Header from '../components/Header';
 import LatestNews from '../components/LatestNews';
@@ -10,16 +10,16 @@ import Loading from '../pages/Loading';
 const HomeLayout = () => {
 
     const { state } = useNavigation();
-    const fetchDatas = fetch('/news.json').then(res => res.json())
+    
+    
 
     return (
         <div>
             <header>
-
                 <Header />
                 <section className='w-11/12 mx-auto py-3'>
                     <Suspense fallback={<Loading />}>
-                        <LatestNews fetchDatas={fetchDatas} />
+                        <LatestNews />
                     </Suspense>
                 </section>
                 <nav className='w-11/12 mx-auto py-3'>
@@ -32,6 +32,7 @@ const HomeLayout = () => {
                 </aside>
                 <section className="main col-span-6">
                     {state == 'loading' ? <Loading /> : <Outlet />}
+                    {/* <Outlet/> */}
                 </section>
                 <aside className='col-span-3 sticky top-0 h-fit'>
                     <RightAside />

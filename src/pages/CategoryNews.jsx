@@ -3,40 +3,43 @@ import { useLoaderData, useParams } from 'react-router';
 import NewsCard from '../components/NewsCard';
 
 const CategoryNews = () => {
-    const { id } = useParams() // string
-    // console.log(obj);
     const data = useLoaderData()
     const [categoryNews, setCategoryNews] = useState([])
-    // console.log(news);
+    const { id } = useParams() // string
+    // console.log(data);
+    
+    
     useEffect(() => {
-        if (id == '0') {
-            setCategoryNews(data)
-            return;
+        const categoryId = parseInt(id)
+        if (id === '0') {
+            setCategoryNews(data);
+            // return;
         } else if (id == '1') {
-            const filteredNews = data.filter(news => news.others.is_today_pick == true)
+            const filteredNews = data.filter(news => news.others.is_today_pick === true)
             setCategoryNews(filteredNews);
             // return
-        } else if (id == '10') {
-            // const noDataMsg = <>
-            //     <h2>No news found</h2>
-            // </>
-            // setCategoryNews(noDataMsg)
-        }
-        else {
-            const filteredNews = data.filter(news => news.category_id == id)
+        } else {
+            const filteredNews1 = data.filter(news => news.category_id === categoryId)
             // console.log(filteredNews);
-            setCategoryNews(filteredNews)
+            setCategoryNews(filteredNews1);
+            // return
         }
+        // console.log(id, categoryId)
 
     }, [data, id])
+
+
+
+
+    // console.log(categoryNews)
     return (
         <div>
             <h2 className='font-bold mb-5'>
                 Total <span className='text-secondary'>{categoryNews.length}</span> news found
             </h2>
-            {
+            {/* {
                 !categoryNews && <h2>No news found</h2>
-            }
+            } */}
             <div className="grid grid-cols-1 gap-5 ">
                 {
                     categoryNews.map(news => <NewsCard key={news.id} news={news} />)

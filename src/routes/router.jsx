@@ -12,17 +12,17 @@ import Loading from "../pages/Loading";
 const router = createBrowserRouter([
     {
         path: '/',
-        Component: HomeLayout,
+        element: <HomeLayout />,
         children: [
             {
                 index: true,
                 element: <Home />
             },
             {
-                path: '/category/:id',
-                Component: CategoryNews,
+                path: 'category/:id',
                 loader: () => fetch('/news.json'),
-                HydrateFallback: Loading
+                hydrateFallbackElement: <Loading />,
+                element: <CategoryNews />,
             }
         ]
     },
@@ -44,7 +44,7 @@ const router = createBrowserRouter([
         path: 'news-details/:id',
         loader: () => fetch('/news.json'),
         element: <PrivateRoute><NewsDetails /></PrivateRoute>,
-        HydrateFallback: Loading
+        hydrateFallbackElement: <Loading />,
     }
 ])
 

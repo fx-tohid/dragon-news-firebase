@@ -13,6 +13,8 @@ const NewsCard = ({ news }) => {
     id
   } = news;
 
+  // console.log(news)
+
   const formattedDate = new Date(author.published_date).toDateString();
 
   return (
